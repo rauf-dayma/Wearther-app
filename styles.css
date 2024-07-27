@@ -9,8 +9,6 @@ body {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(to right, #7e26e2, #776dcf, rgb(63, 119, 204));
     color: #fff;
-    /* background-image: url(newBg.jpg); */
-    /* overflow: hidden; */
 }
 
 header {
@@ -19,24 +17,23 @@ header {
     padding: 15px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    align-self: center;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
     color: white;
 }
 
-/* Ensure the icon stays at the start */
-
-
 header i { 
     font-size: 30px;
-    margin-left: 20px;
+    margin-right: 20px;
     flex-shrink: 0; 
 }
 
-/* Center the h1 within available space */
 header h1 {
-    flex-grow: 1; /* Allow h1 to grow and take up remaining space */
-    text-align: center; /* Center text inside h1 */
-    margin: 0; /* Remove default margins */
+    flex-grow: 1;
+    text-align: center;
+    margin: 0;
     font-weight: bolder;
 }
 
@@ -44,13 +41,21 @@ header h1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    justify-content: center;
-    align-items: start;
     padding: 20px;
+    width: 100%;
+}
+
+.weather-widget, .container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 100%;
 }
 
 .weather-widget p {
-    margin-top: 30px;
+    margin-top: 10px;
     font-size: 20px;
     color: #fff;
 }
@@ -61,19 +66,12 @@ header h1 {
     font-size: 20px;
 }
 
-.locationButton{
+.locationButton {
     margin-top: 20px;
     border: 0;
     background-color: transparent;
     color: white;
     cursor: pointer;
-}
-.weather-widget {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    text-align: center;
 }
 
 .app-title {
@@ -90,6 +88,7 @@ header h1 {
     border: none;
     margin-right: 10px;
     width: 300px;
+    max-width: 100%;
 }
 
 .button {
@@ -106,24 +105,8 @@ header h1 {
     background-color: #e67e22;
 }
 
-.container {
-    
-    background: rgba(255, 255, 255, 0.2);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    /* max-width: 500px; */
-    width: 100%;
-}
-
-.container p {
-    margin-bottom: 20px;
-}
 
 .weather-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 10px;
     padding: 10px;
     background: rgba(255, 255, 255, 0.3);
@@ -185,50 +168,76 @@ header h1 {
     color: #fff;
 }
 
-
-
 .sidebar {
     position: fixed;
     top: 0;
-    left: -250px; /* Initially hide the sidebar */
-    width: 250px;
+    left: -300px;
+    width: 300px;
     height: 100%;
     background: #333;
     color: #fff;
     transition: left 0.3s ease;
     padding: 20px;
     overflow-y: auto;
-    z-index: 100; /* Ensure it sits on top */
+    z-index: 100;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .sidebar.active {
-    left: 0; /* Show the sidebar */
+    left: 0;
 }
 
 .sidebar i {
     cursor: pointer;
+    display: block;
+    margin-bottom: 20px;
+    text-align: right;
+    font-size: 24px;
 }
 
-
-.sidebar li:hover {
-    text-decoration: underline;
+.search-history {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-@media (max-width: 768px) {
-    .weatherDisplay {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .weather-widget, .container {
-        width: 100%;
-        max-width: 90%;
-    }
-
-    .sidebar {
-        width: 200px;
-    }
+.history-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.history-item .city-icon {
+    display: flex;
+    align-items: center;
+}
+
+.history-item .city-icon img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.history-item .city-name {
+    flex-grow: 1;
+    font-size: 16px;
+}
+
+.history-item .temperature {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 
 /* Media queries for responsiveness */
 @media (max-width: 1024px) {
@@ -242,6 +251,22 @@ header h1 {
 }
 
 @media (max-width: 768px) {
+   
+
+    .weatherDisplay {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .weather-widget, .container {
+        width: 100%;
+        padding: 15px;
+        
+    }
+    .current-container{
+        margin-top: 10px;
+    }
+
     .input-field {
         width: 100%;
         margin-bottom: 10px;
@@ -252,56 +277,21 @@ header h1 {
         padding: 15px;
     }
 
-    .weather-widget {
-        padding: 30px;
-    }
-
     .forecast-container {
         grid-template-columns: 1fr;
     }
+
+    
 }
 
 @media (max-width: 480px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
 
-    header i {
-        margin: 0 0 10px 0;
-    }
-
-    header h1 {
-        font-size: 24px;
-    }
-
-    .weatherDisplay {
-        padding: 10px;
-        /* font-size: 24px; */
-    }
-    .weatherDisplay p{
-        margin-top: 10px;
-    }
-
-    .locationButton{
-        margin-top: 10px;
-    }
     .input-field {
         padding: 10px;
     }
 
-    .button{
-        padding:10px;
-    }
-
-    .weather-widget{
+    .button {
         padding: 10px;
-    }
-    .weather-widget .app-title{
-        font-size: 24px;
-    }
-    .container {
-        padding: 15px;
     }
 
     .forecast-card {
@@ -311,4 +301,10 @@ header h1 {
     .forecast-container {
         grid-template-columns: 1fr;
     }
+
+    header {
+        font-size: 14px;
+        text-align: center;
+    }
+
 }

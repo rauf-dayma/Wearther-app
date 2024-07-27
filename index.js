@@ -212,14 +212,32 @@ function updateSearchHistoryUI() {
     searchHistory.forEach(item => {
         const historyDiv = document.createElement('div');
         historyDiv.classList.add('history-item');
-        historyDiv.textContent = item.city;
+        
+        const cityIcon = document.createElement('div');
+        cityIcon.classList.add('city-icon');
+        cityIcon.innerHTML = getWeatherIcon(item.current.condition.text); // Assuming getWeatherIcon returns an HTML string
+        
+        const cityName = document.createElement('div');
+        cityName.classList.add('city-name');
+        cityName.textContent = item.city;
+        
+        const temperature = document.createElement('div');
+        temperature.classList.add('temperature');
+        temperature.textContent = `${item.current.temp_f}°F`;
+        
+        historyDiv.appendChild(cityIcon);
+        historyDiv.appendChild(cityName);
+        historyDiv.appendChild(temperature);
+
         historyDiv.addEventListener('click', () => {
             displayCurrentWeather({ location: { name: item.city }, current: item.current });
-            displayForecast(item.forecast);
+            displayForecast({ forecastday: item.forecast });
         });
+
         searchHistoryContainer.appendChild(historyDiv);
     });
 }
+
 
 // Initialize the search history UI on page load
 updateSearchHistoryUI();
