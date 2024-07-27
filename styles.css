@@ -10,7 +10,7 @@ body {
     background: linear-gradient(to right, #7e26e2, #776dcf, rgb(63, 119, 204));
     color: #fff;
     /* background-image: url(newBg.jpg); */
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 header {
@@ -24,10 +24,12 @@ header {
 }
 
 /* Ensure the icon stays at the start */
-header i {
+
+
+header i { 
     font-size: 30px;
     margin-left: 20px;
-    flex-shrink: 0; /* Prevent icon from shrinking */
+    flex-shrink: 0; 
 }
 
 /* Center the h1 within available space */
@@ -47,9 +49,28 @@ header h1 {
     padding: 20px;
 }
 
+.weather-widget p {
+    margin-top: 30px;
+    font-size: 20px;
+    color: #fff;
+}
+
+.weather-widget i {
+    color: #fff;
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.locationButton{
+    margin-top: 20px;
+    border: 0;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
 .weather-widget {
     background: rgba(255, 255, 255, 0.1);
-    padding: 55px;
+    padding: 35px;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     text-align: center;
@@ -63,19 +84,20 @@ header h1 {
 }
 
 .input-field {
+    text-align: center;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     margin-right: 10px;
-    width: 290px;
+    width: 300px;
 }
 
 .button {
-    background-color: #f39c12;
+    background-color: #fff;
     border: none;
-    color: white;
+    color: gray;
     padding: 15px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -85,11 +107,12 @@ header h1 {
 }
 
 .container {
+    
     background: rgba(255, 255, 255, 0.2);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    max-width: 500px;
+    /* max-width: 500px; */
     width: 100%;
 }
 
@@ -160,4 +183,137 @@ header h1 {
 
 .forecast-value {
     color: #fff;
+}
+
+
+
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    overflow-y: auto;
+    transition: left 0.3s;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.sidebar li:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .weatherDisplay {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .weather-widget, .container {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+    .weatherDisplay {
+        grid-template-columns: 1fr;
+    }
+
+    .forecast-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-field {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .button {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .weather-widget {
+        padding: 30px;
+    }
+
+    .forecast-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header i {
+        margin: 0 0 10px 0;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .weatherDisplay {
+        padding: 10px;
+        /* font-size: 24px; */
+    }
+    .weatherDisplay p{
+        margin-top: 10px;
+    }
+
+    .locationButton{
+        margin-top: 10px;
+    }
+    .input-field {
+        padding: 10px;
+    }
+
+    .button{
+        padding:10px;
+    }
+
+    .weather-widget{
+        padding: 10px;
+    }
+    .weather-widget .app-title{
+        font-size: 24px;
+    }
+    .container {
+        padding: 15px;
+    }
+
+    .forecast-card {
+        padding: 15px;
+    }
+
+    .forecast-container {
+        grid-template-columns: 1fr;
+    }
 }

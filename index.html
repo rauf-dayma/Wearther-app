@@ -11,14 +11,23 @@
 </head>
 <body>
     <header id="header">
-        <i class="fa-sharp fa-solid fa-plus"></i>
+       <p class="menu-icon"> <i class="fa-solid fa-bars"></i></p>
         <h1>Weather Dashboard</h1>
     </header>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Recent Searches</h2>
+        <ul id="search-history"></ul>
+    </div>
+    
     <section class="weatherDisplay">
         <div class="weather-widget">
             <h1 class="app-title">Weather App</h1>
-            <input type="text" id="city-input" class="input-field" placeholder="Enter city name">
+    
+            <input type="text" id="city-input" class="input-field" placeholder= "Enter City Name">
             <button id="search-button" class="button">Search</button>
+            <p>------------------- or -------------------</p>
+            <button class="locationButton"><i class="fa-solid fa-location-dot"></i> Use Current Location</button>
         </div>
     </section>
     <script src="index.js"></script>

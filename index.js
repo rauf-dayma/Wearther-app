@@ -1,4 +1,5 @@
 const searchButton = document.getElementById('search-button');
+const locationButton = document.querySelector('.locationButton');
 const weatherDisplay = document.querySelector(".weatherDisplay");
 
 // Your WeatherAPI key
@@ -10,7 +11,15 @@ searchButton.addEventListener('click', function() {
         alert('Please enter a valid city name.');
         return;
     }
-    fetchWeatherData(city);
+    fetchWeatherDataByCity(city);
+});
+
+locationButton.addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchWeatherDataByCoords, showError);
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
 });
 
 function validateCity(city) {
@@ -19,7 +28,7 @@ function validateCity(city) {
     return city.length > 0 && regex.test(city);
 }
 
-async function fetchWeatherData(city) {
+async function fetchWeatherDataByCity(city) {
     const url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=5&aqi=no&alerts=no`;
     try {
         const response = await fetch(url);
@@ -32,6 +41,40 @@ async function fetchWeatherData(city) {
     } catch (error) {
         console.error('Error fetching weather data:', error);
         alert('Error fetching weather data. Please check the console for details.');
+    }
+}
+
+async function fetchWeatherDataByCoords(position) {
+    const { latitude, longitude } = position.coords;
+    const url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=5&aqi=no&alerts=no`;
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        displayCurrentWeather(result);
+        displayForecast(result.forecast.forecastday);
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        alert('Error fetching weather data. Please check the console for details.');
+    }
+}
+
+function showError(error) {
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
     }
 }
 
@@ -66,13 +109,14 @@ function displayCurrentWeather(data) {
 }
 
 function displayForecast(forecast) {
-    const existingContainer = document.querySelector(".forecast-container");
-    if (existingContainer) {
-        weatherDisplay.removeChild(existingContainer);
+    const forecastContainer = document.querySelector(".forecast-container");
+    if (forecastContainer) {
+        weatherDisplay.removeChild(forecastContainer);
     }
-    const forecastContainer = document.createElement("div");
-    forecastContainer.classList.add("forecast-container");
-    weatherDisplay.appendChild(forecastContainer);
+
+    const newForecastContainer = document.createElement("div");
+    newForecastContainer.classList.add("forecast-container");
+    weatherDisplay.appendChild(newForecastContainer);
 
     forecast.forEach(day => {
         const forecastCard = document.createElement("div");
@@ -100,7 +144,7 @@ function displayForecast(forecast) {
             </div>
         `;
 
-        forecastContainer.appendChild(forecastCard);
+        newForecastContainer.appendChild(forecastCard);
     });
 }
 
