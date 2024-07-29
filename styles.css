@@ -8,8 +8,11 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(to right, #7e26e2, #776dcf, rgb(63, 119, 204));
+    /* background-image: url("newBg.jpg"); */
     color: #fff;
 }
+
+/* header section */
 
 header {
     width: 100%;
@@ -36,6 +39,9 @@ header h1 {
     margin: 0;
     font-weight: bolder;
 }
+
+
+/* display section */
 
 .weatherDisplay {
     display: grid;
@@ -134,6 +140,7 @@ header h1 {
     gap: 20px;
 }
 
+
 .forecast-card {
     background: rgba(255, 255, 255, 0.2);
     padding: 20px;
@@ -167,6 +174,8 @@ header h1 {
 .forecast-value {
     color: #fff;
 }
+
+/* side bar section */
 
 .sidebar {
     position: fixed;
@@ -240,6 +249,8 @@ header h1 {
 
 
 /* Media queries for responsiveness */
+
+
 @media (max-width: 1024px) {
     .weatherDisplay {
         grid-template-columns: 1fr;

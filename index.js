@@ -7,7 +7,7 @@ const menuIcon = document.querySelector(".menu-icon");
 const sidebar = document.getElementById('sidebar');
 const arrowIcon = document.querySelector('#arrow-icon');
 
-// Your WeatherAPI key
+//WeatherAPI key
 const apiKey = '978c86ef7312455fa98151044242607';
 
 // Initialize search history
@@ -54,7 +54,7 @@ async function fetchWeatherDataByCity(city) {
         }
         const result = await response.json();
         displayCurrentWeather(result);
-        displayForecast(result.forecast.forecastday);
+        displayForecast(result.forecast);
         saveToSearchHistory(result);
         updateSearchHistoryUI();
     } catch (error) {
@@ -74,7 +74,7 @@ async function fetchWeatherDataByCoords(position) {
         }
         const result = await response.json();
         displayCurrentWeather(result);
-        displayForecast(result.forecast.forecastday);
+        displayForecast(result.forecast);
     } catch (error) {
         console.error('Error fetching weather data:', error);
         alert('Error fetching weather data. Please check the console for details.');
@@ -141,7 +141,7 @@ function displayForecast(forecastData) {
     newForecastContainer.classList.add("forecast-container");
     weatherDisplay.appendChild(newForecastContainer);
 
-    forecastData.forEach(day => {
+    forecastData.forecastday.forEach(day => {
         const forecastCard = document.createElement("div");
         forecastCard.classList.add("forecast-card");
 
@@ -215,7 +215,7 @@ function updateSearchHistoryUI() {
         
         const cityIcon = document.createElement('div');
         cityIcon.classList.add('city-icon');
-        cityIcon.innerHTML = getWeatherIcon(item.current.condition.text); // Assuming getWeatherIcon returns an HTML string
+        cityIcon.innerHTML = getWeatherIcon(item.current.condition.text); 
         
         const cityName = document.createElement('div');
         cityName.classList.add('city-name');
@@ -232,12 +232,12 @@ function updateSearchHistoryUI() {
         historyDiv.addEventListener('click', () => {
             displayCurrentWeather({ location: { name: item.city }, current: item.current });
             displayForecast({ forecastday: item.forecast });
+            sidebar.classList.remove('active'); // Collapse sidebar on item click
         });
 
         searchHistoryContainer.appendChild(historyDiv);
     });
 }
-
 
 // Initialize the search history UI on page load
 updateSearchHistoryUI();
